@@ -1,1 +1,1 @@
-worker: scrapy crawl firebasetest
+worker: scrapy crawl firebasetest.py
