@@ -67,7 +67,6 @@ PySocks==1.6.7
 python-firebase==1.2
 python-jwt==2.0.1
 python-language-server==0.11.1
-pywin32==221
 PyYAML==3.12
 queuelib==1.4.2
 requests==2.18.4
