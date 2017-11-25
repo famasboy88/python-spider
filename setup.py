@@ -1,9 +1,10 @@
+# Automatically created by: shub deploy
+
 from setuptools import setup, find_packages
 
 setup(
-    name         = 'testspiders',
+    name         = 'project',
     version      = '1.0',
     packages     = find_packages(),
-    entry_points = {'scrapy': ['settings = testspiders.settings']},
-    scripts = ['bin/testargs.py']
+    entry_points = {'scrapy': ['settings = zywie_pinoy_scraper.settings']},
 )
