@@ -1,1 +1,1 @@
-worker: scrapy crawl firebasetest
+worker: python run_crawl.py
