@@ -21,8 +21,8 @@ class FirebasetestSpider(scrapy.Spider):
     }
     results = db.child("users").push(data, user['idToken'])
     name = 'firebasetest'
-    allowed_domains = ['firebase.py']
-    start_urls = ['http://firebase.py/']
+    allowed_domains = ['panlasangpinoy.com']
+    start_urls = ['http://panlasangpinoy.com/indexes/recipe-index/']
 
     def parse(self, response):
         pass
