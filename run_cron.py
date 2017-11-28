@@ -47,7 +47,7 @@ sched = BlockingScheduler()
 #     runner.crawl(FirebasetestSpider)
 #     reactor.stop()
 
-@sched.scheduled_job('cron', year='*', month='*', day="*", week='*', day_of_week='*', hour='*', minute="*", second="*/20")
+@sched.scheduled_job('cron', year='*', month='*', day="*", week='*', day_of_week='*', hour='*', minute="*", second="*/59")
 def scheduled_job():
     # crawl()
     # reactor.run() # the script will block here until the last crawl call is finished
