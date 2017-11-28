@@ -12,7 +12,7 @@ def run_crawl():
     return deferred
 
 taskcall = task.LoopingCall(run_crawl)
-taskcall.start(60)  # call every second
+taskcall.start(3)  # call every second
 
 # l.stop() will stop the looping calls
 reactor.run()

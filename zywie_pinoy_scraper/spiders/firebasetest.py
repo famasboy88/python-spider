@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import time
-import schedule
 from pyrebase import pyrebase
+from twisted.internet import reactor
 
 
 class FirebasetestSpider(scrapy.Spider):
@@ -26,8 +25,13 @@ class FirebasetestSpider(scrapy.Spider):
 
     def parse(self, response):
         links = response.css('li.ei-item > h3 > a::attr(href)').extract_first()
+        name = response.css('li.ei-item > h3 > a::text').extract_first()
         data = {
-            "name": "Its morning!",
-            "link": links
+            'data': {
+                "name": "Its morning!",
+                "link": links,
+                "name": name
+            }
         }
-        results = self.db.child("users").push(data, self.user['idToken'])
+        self.db.child("users").push(data, self.user['idToken'])
+        reactor.callFromThread(reactor.stop)
