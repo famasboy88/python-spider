@@ -34,4 +34,3 @@ class FirebasetestSpider(scrapy.Spider):
             }
         }
         self.db.child("users").push(data, self.user['idToken'])
-        reactor.callFromThread(reactor.stop)
