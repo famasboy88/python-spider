@@ -35,6 +35,6 @@ from apscheduler.schedulers.twisted import TwistedScheduler
 
 process = CrawlerProcess(get_project_settings())
 sched = TwistedScheduler()
-sched.add_job(process.crawl, 'cron', args=[FirebasetestSpider], year='*', month='*', day="*", week='*', day_of_week='*', hour='*', minute="*/1", second="*")
+sched.add_job(process.crawl, 'cron', args=[FirebasetestSpider], year='*', month='*', day="*", week='*', day_of_week='*', hour='*', minute="*", second="*/59")
 sched.start()
 process.start(False)    # Do not stop reactor after spider closes
