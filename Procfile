@@ -1,1 +1,1 @@
-clock: python run_cron.py
+clock: python run_crawl.py
