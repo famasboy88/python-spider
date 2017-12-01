@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
+import os
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
@@ -10,7 +11,8 @@ class PinoyRecipeSpider(scrapy.Spider):
     allowed_domains = ['panlasangpinoy.com']
     start_urls = ['http://panlasangpinoy.com/indexes/recipe-index/']
     ################################################################
-    cred = credentials.Certificate('service.json')
+    DIR = os.path.dirname(__file__)
+    cred = credentials.Certificate(os.path.join(DIR, 'service.json'))
     firebase_admin.initialize_app(cred, {
         'databaseURL' : 'https://zywie-2b7c2.firebaseio.com'
     })
