@@ -21,6 +21,7 @@ class FirebasetestSpider(scrapy.Spider):
     firebase = pyrebase.initialize_app(config)
     auth = firebase.auth()
     user = auth.sign_in_with_email_and_password('admin@zywie.com', 'admin123')
+    user = auth.refresh(user['refreshToken'])
     db = firebase.database()
 
     def parse(self, response):
