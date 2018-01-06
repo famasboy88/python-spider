@@ -24,15 +24,15 @@ class PinoyRecipeSpider(scrapy.Spider):
 
         for category_id, link in zip(categories, links):
             link = response.urljoin(link)
-            if db.reference('food_index_category').child(category_id).get():
-                print('Data is already inside')
-            else:
-                self.rootDB.child('food_index_category').child(category_id).update({
-                    'food_index_category_link': link
-                })
-                request = scrapy.Request(link, callback=self.subcat)
-                request.meta['category'] = category_id
-                yield request
+            # if db.reference('food_index_category').child(category_id).get():
+            #     print('Data is already inside')
+            # else:
+            # self.rootDB.child('food_index_category').child(category_id).update({
+            #     'food_index_category_link': link
+            # })
+            request = scrapy.Request(link, callback=self.subcat)
+            request.meta['category'] = category_id
+            yield request
         pass
 
     def subcat(self, response):
@@ -52,14 +52,20 @@ class PinoyRecipeSpider(scrapy.Spider):
         name_food = response.css('header.entry-header > h1::text').extract_first()
         list_recipe = response.css('li.ingredient::text').extract()
         description = response.css('div.entry-content > p::text').extract_first()
-        if db.reference('food_title').child(response.meta['title_id']).get():
-            print('Data is already inside')
-        else:
-            self.rootDB.child('food_title').child(response.meta['title_id']).update({
-                'category_id': response.meta['category'],
-                'link': response.meta['link'],
-                'name_food': response.meta['title_id'],
-                'list_recipe': list_recipe,
-                'description': description
-            })
+        photo_url = response.xpath('//img[@itemprop="image"]/@src').extract_first()
+        if(photo_url == None):
+            photo_url = response.css('img.photo::attr(src)').extract_first()
+        procedure = response.css('div.ERSInstructions > ol > li::text').extract()
+        # if db.reference('food_title').child(response.meta['title_id']).get():
+        #     print('Data is already inside')
+        # else:
+        self.rootDB.child('food_title').child(response.meta['title_id']).update({
+            'category_id': response.meta['category'],
+            'link': response.meta['link'],
+            'name_food': response.meta['title_id'],
+            'list_recipe': list_recipe,
+            'description': description,
+            'photo_url': photo_url,
+            'procedure': procedure
+        })
         pass
