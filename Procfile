@@ -1,1 +1,1 @@
-clock: scrapy crawl usda
+worker: scrapy crawl usda
