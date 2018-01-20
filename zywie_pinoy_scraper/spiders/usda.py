@@ -36,11 +36,20 @@ class UsdaSpider(scrapy.Spider):
             return
 
     def getDetail(self, response):
-        energy = response.xpath('//nutrient[@name="Energy"]/@value').extract_first()
-        quantity = response.xpath('//nutrient[@name="Energy"]/measures/measure/@qty').extract_first()
-        energy = float(energy)
-        quantity = float(quantity)
-        db.reference().child('usda_food_exchange').child(response.meta['exchange_category']).child(response.meta['food_item']).update({
-            'kcal': energy,
-            'value_grams': quantity
-        })
+        # energy = response.xpath('//nutrient[@name="Energy"]/@value').extract_first()
+        # quantity = response.xpath('//nutrient[@name="Energy"]/measures/measure/@qty').extract_first()
+        # energy = float(energy)
+        # quantity = float(quantity)
+        # db.reference().child('test_usda_food_exchange').child(response.meta['exchange_category']).child(response.meta['food_item']).update({
+        #     'kcal': energy,
+        #     'value_grams': quantity
+        # })
+
+        proximity = response.xpath('//nutrient[@group="Proximates"]/@name').extract()
+        for proxi in proximity:
+            unit = response.xpath('//nutrient[@name="'+proxi+'"]/@unit').extract_first()
+            value = response.xpath('//nutrient[@name="'+proxi+'"]/@value').extract_first()
+            db.reference().child('test_usda_food_exchange').child(response.meta['exchange_category']).child(response.meta['food_item']).child(proxi).update({
+                'unit': unit,
+                'value': value
+            })
